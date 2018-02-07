@@ -1,0 +1,25 @@
+span.nav-bar__menu 
+    button.nav-bar__menu__button
+        div.nav-bar__menu__button-first
+        div.nav-bar__menu__button-middle      
+        div.nav-bar__menu__button-last
+div.nav-bar__image-container
+  img.nav-bar__image(src=logo.link, alt=logo.img)
+ul.nav-bar__list
+  each element in links
+    if Object.keys(element).includes('href')
+      div
+        li.nav-bar__list-item
+          a.nav-bar__list-item-element(href=element.href) #{element.label}
+    else
+        div.nav-bar__list-container
+          li.nav-bar__list-item  #{element.label}
+              ul.nav-bar__dropdown-list
+                each subElement in element.links
+                  li
+                    a(href=subElement.href) #{subElement.label}
+          span.nav-bar__arrow-container
+            span.nav-bar__arrow-container-item
+            span.nav-bar__arrow-container-item
+
+
