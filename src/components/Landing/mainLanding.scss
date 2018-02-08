@@ -2,5 +2,5 @@
 @import '../common/variables.scss';
 @import '../common/responsive.scss';
 @import './_landing.scss';
-@import './_register.scss';
-@import './_login.scss';
+@import './Register/_register.scss';
+@import './Login/_login.scss';

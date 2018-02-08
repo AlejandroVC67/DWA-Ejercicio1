@@ -1,3 +1,4 @@
+import '../mainLanding.scss'
 import template from './register.pug'
 export class Register {
   constructor (node) {

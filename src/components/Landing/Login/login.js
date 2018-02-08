@@ -1,4 +1,4 @@
-import './mainLanding.scss'
+import '../mainLanding.scss'
 import template from './login.pug'
 export class Login {
   constructor (node) {
