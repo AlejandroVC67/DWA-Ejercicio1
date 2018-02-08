@@ -1,0 +1,25 @@
+.grid{
+	height: 92vh;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: auto;
+	&__element {
+		position: relative;
+		cursor: pointer;
+		display: none;
+		&--active{
+			display: unset;
+		}
+	}
+	@include medium{
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(3,1fr);
+	}
+	@include large{
+		grid-auto-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(3,1fr);		
+	}
+}
+
+
+

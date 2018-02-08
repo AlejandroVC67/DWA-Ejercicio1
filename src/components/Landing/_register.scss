@@ -1,0 +1,20 @@
+.register{
+	width: 100%;
+	height: 100vh;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	&--active{
+		display: flex;
+	}
+	&__form{
+		width: 100%;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
+}
+

@@ -3,23 +3,25 @@ import data from '../../Data/data.json'
 import template from './nav-bar.pug'
 
 export class NavBar {
-  constructor (node) {
+  constructor (node, categories, callback) {
     this.node = node
+    this.data = categories
+    this.onChange = callback
     this.elements = {}
     this.generateHTML()
+    this.currentFilter = 'All'
     this.elements.menu = this.node.querySelector('.nav-bar__menu__button')
     this.elements.displayer = this.node.querySelector('.nav-bar__list')
-    this.elements.dropDown = this.node.querySelectorAll('.nav-bar__list-container')
-    this.elements.dropDownList = this.node.querySelectorAll('.nav-bar__dropdown-list')
     this.setMenuAction(this.elements.menu, this.elements.displayer)
-    this.setDropDownAction(this.elements.dropDown, this.elements.dropDownList)
-    this.currentDropdown = null
+    this.elements.categories = this.node.querySelectorAll('.nav-bar__list__element-button')
+    this.setCategoriesAction(this.elements.categories)
   }
 
-  generateHTML () {
-    this.node.innerHTML = template(data)
+  static get contentStructure () {
+    return {
+      dots: `<li class="nav-bar__list__element"><button class="nav-bar__list__element-button" data-category="{cat}">{cat}</button></li>`
+    }
   }
-
   static get states () {
     return {
       firstArrowActive: `nav-bar__menu__button-first--active`,
@@ -30,9 +32,20 @@ export class NavBar {
     }
   }
 
+  generateHTML () {
+    this.node.innerHTML = template(data)
+    this.elements.displayer = this.node.querySelector('.nav-bar__list')
+
+    const categoriesArray = this.data.map(element => {
+      return NavBar.contentStructure.dots.replace('{cat}', element).replace('{cat}', element)
+    })
+    this.elements.displayer.innerHTML += categoriesArray.join('')
+  }
+
   setMenuAction (buttonMenu, itemsDisplayer) {
     buttonMenu.addEventListener('click', () => {
       this.animateMenu()
+      this.hideGridElements()
       itemsDisplayer.classList.toggle('nav-bar__list--active')
     })
   }
@@ -44,27 +57,27 @@ export class NavBar {
     this.elements.lastArrow.classList.toggle(NavBar.states.lastArrowActive)
   }
 
-  setDropDownAction (dropDownTrigger) {
-    dropDownTrigger.forEach(element => {
-      element.addEventListener('click', () => {
-        const index = Array.from(dropDownTrigger).indexOf(element)
-        this.changeArrows(element, index)
-        if (this.currentDropdown === null) {
-          this.currentDropdown = index
-        }
-        if (index === this.currentDropdown) {
-          this.elements.dropDownList[this.currentDropdown].classList.toggle(NavBar.states.dropDownActive)
-        } else {
-          this.elements.dropDownList[this.currentDropdown].classList.remove(NavBar.states.dropDownActive)
-          this.elements.dropDownList[index].classList.add(NavBar.states.dropDownActive)
-          this.currentDropdown = index
-        }
-      })
+  hideGridElements () {
+    document.querySelectorAll('.grid__element').forEach(element => {
+      element.classList.remove('grid__element--active')
     })
   }
 
-  changeArrows (element, index) {
-    element.querySelectorAll('.nav-bar__arrow-container-item')[0].classList.toggle(NavBar.states.leftArrowActive)
-    element.querySelectorAll('.nav-bar__arrow-container-item')[1].classList.toggle(NavBar.states.rightArrowActive)
+  setCategoriesAction (categories) {
+    categories.forEach(element => {
+      element.addEventListener('click', this.getClickedElement.bind(this))
+    })
+  }
+
+  getClickedElement (event) {
+    this.hideGridElements()
+    if (event.currentTarget !== this.currentFilter) {
+      this.node.querySelector('.nav-bar__list__element-button--selected').classList.remove('nav-bar__list__element-button--selected')
+      event.currentTarget.classList.add('nav-bar__list__element-button--selected')
+      this.currentFilter = event.currentTarget.dataset.category
+      this.elements.displayer.classList.toggle('nav-bar__list--active')
+      console.log(this.currentFilter)
+      this.onChange(this.currentFilter)
+    }
   }
 }

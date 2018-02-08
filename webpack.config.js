@@ -48,7 +48,14 @@ module.exports = {
     ]
   },
   plugins: [
-
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        beautify: false,
+        ecma: 6,
+        compress: true,
+        comments: false
+      }
+    }),
     new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       template: './src/index.html',

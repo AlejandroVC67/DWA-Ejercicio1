@@ -49,14 +49,6 @@
 			}
 		}
 	}
-	&__image{
-		width: 100%;
-		height: 100%;
-		object-fit: scale-down;
-		&__container{
-			width: 30%;
-		}
-	}
 	&__list{
     display: flex;
     position: absolute;
@@ -79,94 +71,26 @@
 			margin-left: 0;
 			min-height: 0;
 		}
-		& > div {
+		&__element{
+			margin-bottom: 50px;
 			width: 100%;
 			display: flex;
 			justify-content: center;
-			&:hover{
-				background-color: $dropdownActiveColor;
-			}
-			@include large{
-				align-items: center;
-				display: flex;
-				height: 100%;
-				
-			}
-		}
-		&-item{
-			margin-bottom: 50px;
-			font-size: 30px;
-			width: 100%;
 			@include large{
 				margin-bottom: 0;
 				font-size: 20px;
 			}
-			&-element{
-				display: block;
-				text-decoration: none;
-				width: 100%;
+			&-button{
+				border-radius: 5px;
+				border-color: black;
+				font-size: 30px;
+				background-color: unset;
+				&:hover{
+					border-color: white;
+					color: white;
+				}
 			}
 		}
-		&-container{
-			&:hover{
-				background-color: $dropdownActiveColor;
-			}
-			@include large{
-			align-items: center;
-			}
-	  }
-}
-	&__dropdown-list{
-		will-change: height;
-    overflow: hidden;
-    height: 0;
-		transition: height .2s ease-in-out;
-		margin-left: 5px;
-		@include large{
-			position: absolute;
-			margin-top: 2px;
-			margin-left: -4px;
-		}
-		&--active{
-			height: auto;
-			@include large{
-				background-color: $dropdownActiveColor;
-			}
-		}
-		& > li{
-			& > a {
-				text-decoration: none;
-			}
-		}
-	}
-	&__arrow-container{
-		display: flex;
-		width: 30px;
-		margin-top: 8px;
-		justify-content: center;
-
-	@include large{
-		position: unset;
-		margin-left: 0;
-	}
-	&-item{
-		border: 1px solid;
-		margin-right: 5px;
-		height: 15px;
-		max-width: 100%;
-		&:first-child{
-				transform: rotate(-34deg);
-			&.leftArrow--active{
-				transform: rotate(34deg);
-			}
-		}
-		&:last-child{
-			transform: rotate(34deg);
-			&.rightArrow--active{
-				transform: rotate(-34deg);
-			}
-		}
-	}
 	}
 }
 

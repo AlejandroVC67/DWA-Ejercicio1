@@ -1,0 +1,34 @@
+.job{
+	width: 100%;
+	height: 100%;
+	&__image{
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+	&__information{
+		font-size: 15px;
+		color:black;
+		font-weight: bolder;
+		@include medium {
+			font-size: 20px;
+		}
+		@include large {
+			font-size: 20px;
+		}
+		&-container{
+			position: absolute;
+			bottom: 0;
+			background-color: orange;
+			opacity: .5;
+			width: 100%;
+			border-radius: 10px 10px 0 0;
+			justify-content: center;
+			display: flex;
+			flex-direction: column;
+			&--disable {
+				display: none;
+			}
+		}
+	}
+}
