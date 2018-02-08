@@ -5,9 +5,9 @@ import { RegisterModel } from './model/Landing/Register/Register.js'
 import DataRetriever from './model/common/DataRetriever.js'
 import { Landing } from './components/Landing/Landing.js'
 /* eslint-disable */
-new Landing(document.querySelector('.landing'))
 new Login(document.querySelector('.login'))
 new Register(document.querySelector('.register'))
+new Landing(document.querySelector('.landing'))
 /* eslint-enable */
 const URL = 'https://api.myjson.com/bins/gxoo9'
 DataRetriever.get(URL, (data) => {
