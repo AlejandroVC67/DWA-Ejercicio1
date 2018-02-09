@@ -3,8 +3,7 @@ import './mainGrid.scss'
 export class Grid {
   constructor (node) {
     this.node = node
-    this.person = JSON.parse(window.sessionStorage.getItem('person'))
-    this.data = this.person[1].jobs
+    this.jobs = JSON.parse(window.sessionStorage.getItem('person'))
     // console.log(this.person)
     // console.log(this.data)
     this.elements = {}
@@ -35,7 +34,7 @@ export class Grid {
   }
 
   createGridElement (grid) {
-    const jobsArray = this.data.map(element => {
+    const jobsArray = this.jobs.map(element => {
       return Grid.contentStructure.gridElement
         .replace('{src}', element.url)
         .replace('{title}', element.title)
