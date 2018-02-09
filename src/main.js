@@ -8,11 +8,17 @@ import { Landing } from './components/Landing/Landing.js'
 new Login(document.querySelector('.login'))
 new Register(document.querySelector('.register'))
 new Landing(document.querySelector('.landing'))
+
+function onCreate (createdUser) {
+  // console.log(JSON.stringify(createdUser))
+  DataRetriever.post(URL, createdUser)
+}
+
 /* eslint-enable */
-const URL = 'https://api.myjson.com/bins/gxoo9'
+const URL = 'https://api.myjson.com/bins/vkl1d'
 DataRetriever.get(URL, (data) => {
 /* eslint-disable */
   new LoginModel(document.querySelector('.login'), data)
-  new RegisterModel(document.querySelector('.register'), data)
+  new RegisterModel(document.querySelector('.register'), data, onCreate)
 /* eslint-enable */
 })

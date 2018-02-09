@@ -3,6 +3,7 @@ export class LoginModel {
     this.node = node
     this.data = data
     this.elements = {}
+    console.log(this.data)
     this.elements.input = this.node.querySelectorAll('.login__form__input')
     this.elements.button = this.node.querySelector('.login__form__button')
     this.setButtonAction()
@@ -10,21 +11,23 @@ export class LoginModel {
 
   setButtonAction () {
     this.elements.button.addEventListener('click', () => {
-      console.log(this.data.Person[0].email)
-      console.log(this.data.Person[0].password)
       const email = this.elements.input[0].value
       const password = this.elements.input[1].value
-      if (this.data.Person[0].email === email && this.data.Person[0].password === password) {
-        this.verifyPassword(this.elements.input[1].value)
-      } else {
-        window.alert('Wrong credentials')
-      }
+      // console.log(email)
+      // console.log(password)
+      this.data.forEach(element => {
+        if (element.Person[0].email === email && element.Person[0].password === password) {
+          this.verifyPassword(this.elements.input[1].value, element.Person)
+        }
+      })
     })
   }
 
-  verifyPassword (password) {
+  verifyPassword (password, person) {
     const MINLENGTH = 8
+    console.log(person)
     if (password.length >= MINLENGTH && /(?=.*[0-9])/.exec(password) && /(?=.*[!@#$%^&*])/.exec(password)) {
+      window.sessionStorage.setItem('person', JSON.stringify(person))
       window.location.href = './app.html'
     } else {
       window.alert('Password should contain numbers or special characters')

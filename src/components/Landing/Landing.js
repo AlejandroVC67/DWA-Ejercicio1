@@ -3,12 +3,10 @@ export class Landing {
     this.node = node
     this.elements = {}
     this.elements.buttons = this.node.querySelectorAll('.landing__button')
-    console.log(this.elements.buttons)
-    this.setButtonsActions()
+    this.setButtonsActions(this.elements.buttons)
   }
-  setButtonsActions () {
-    this.elements.buttons.forEach(element => {
-      console.log(element)
+  setButtonsActions (buttons) {
+    buttons.forEach(element => {
       element.addEventListener('click', this.showSection.bind(this))
     })
   }

@@ -1,12 +1,13 @@
 import './mainGrid.scss'
 
 export class Grid {
-  constructor (node, data) {
+  constructor (node) {
     this.node = node
-    this.data = data.Person[1].jobs
+    this.person = JSON.parse(window.sessionStorage.getItem('person'))
+    this.data = this.person[1].jobs
+    // console.log(this.person)
     // console.log(this.data)
     this.elements = {}
-    // console.log(this.elements.grid)
     this.createGridElement(this.node)
     this.elements.gridElements = this.node.querySelectorAll('.grid__element')
     this.showAllCategories(this.elements.gridElements, 'All')
