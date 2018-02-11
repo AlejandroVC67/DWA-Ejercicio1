@@ -10,12 +10,13 @@ new Register(document.querySelector('.register'))
 new Landing(document.querySelector('.landing'))
 
 function onCreate (createdUser) {
+  // console.log(createdUser)
   // console.log(JSON.stringify(createdUser))
   DataRetriever.post(URL, createdUser)
 }
 
 /* eslint-enable */
-const URL = 'https://api.myjson.com/bins/vkl1d'
+const URL = 'https://api.myjson.com/bins/12na3h'
 DataRetriever.get(URL, (data) => {
 /* eslint-disable */
   new LoginModel(document.querySelector('.login'), data)

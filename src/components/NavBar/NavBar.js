@@ -14,7 +14,11 @@ export class NavBar {
     this.elements.displayer = this.node.querySelector('.nav-bar__list')
     this.setMenuAction(this.elements.menu, this.elements.displayer)
     this.elements.categories = this.node.querySelectorAll('.nav-bar__list__element-button')
+    this.elements.addJob = this.node.querySelector('.nav-bar__list__element-addbtn')
+    this.elements.jobForm = document.querySelector('.job__form')
     this.setCategoriesAction(this.elements.categories)
+    this.setAddJobAction(this.elements.addJob, this.elements.jobForm)
+    this.setLogOutAction(this.node.querySelector('.nav-bar__list__element-logoutbtn'))
   }
 
   static get contentStructure () {
@@ -27,8 +31,7 @@ export class NavBar {
       firstArrowActive: `nav-bar__menu__button-first--active`,
       lastArrowActive: `nav-bar__menu__button-last--active`,
       dropDownActive: `nav-bar__dropdown-list--active`,
-      leftArrowActive: `leftArrow--active`,
-      rightArrowActive: `rightArrow--active`
+      navBarActive: `nav-bar__list--active`
     }
   }
 
@@ -45,8 +48,7 @@ export class NavBar {
   setMenuAction (buttonMenu, itemsDisplayer) {
     buttonMenu.addEventListener('click', () => {
       this.animateMenu()
-      this.hideGridElements()
-      itemsDisplayer.classList.toggle('nav-bar__list--active')
+      itemsDisplayer.classList.toggle(NavBar.states.navBarActive)
     })
   }
 
@@ -57,12 +59,6 @@ export class NavBar {
     this.elements.lastArrow.classList.toggle(NavBar.states.lastArrowActive)
   }
 
-  hideGridElements () {
-    document.querySelectorAll('.grid__element').forEach(element => {
-      element.classList.remove('grid__element--active')
-    })
-  }
-
   setCategoriesAction (categories) {
     categories.forEach(element => {
       element.addEventListener('click', this.getClickedElement.bind(this))
@@ -70,7 +66,6 @@ export class NavBar {
   }
 
   getClickedElement (event) {
-    this.hideGridElements()
     if (event.currentTarget !== this.currentFilter) {
       this.node.querySelector('.nav-bar__list__element-button--selected').classList.remove('nav-bar__list__element-button--selected')
       event.currentTarget.classList.add('nav-bar__list__element-button--selected')
@@ -79,5 +74,19 @@ export class NavBar {
       // console.log(this.currentFilter)
       this.onChange(this.currentFilter)
     }
+  }
+
+  setAddJobAction (button, form) {
+    button.addEventListener('click', () => {
+      this.elements.displayer.classList.remove(NavBar.states.navBarActive)
+      form.classList.toggle('job__form--active')
+    })
+  }
+
+  setLogOutAction (button) {
+    button.addEventListener('click', () => {
+      window.sessionStorage.clear()
+      window.location.href = 'http://localhost:8080'
+    })
   }
 }

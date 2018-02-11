@@ -3,6 +3,8 @@
 	height: 7vh;
 	background-color: $navBarColor;
 	display: flex;
+	position: absolute;
+	z-index: 1;
 	cursor: pointer;
 	&__menu{
 		width: 15%;
@@ -81,6 +83,26 @@
 				font-size: 20px;
 			}
 			&-button{
+				border-radius: 5px;
+				border-color: black;
+				font-size: 30px;
+				background-color: unset;
+				&:hover{
+					border-color: white;
+					color: white;
+				}
+			}
+			&-addbtn{
+				border-radius: 5px;
+				border-color: black;
+				font-size: 30px;
+				background-color: unset;
+				&:hover{
+					border-color: white;
+					color: white;
+				}
+			}
+			&-logoutbtn{
 				border-radius: 5px;
 				border-color: black;
 				font-size: 30px;

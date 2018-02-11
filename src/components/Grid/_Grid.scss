@@ -1,8 +1,10 @@
 .grid{
 	height: 92vh;
+	top: 7vh;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-template-rows: auto;
+	position: absolute;
 	&__element {
 		position: relative;
 		cursor: pointer;

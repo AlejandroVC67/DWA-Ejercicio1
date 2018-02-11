@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {'main': './src/main.js',
-    'app': './src/navbar.js',
+    'app': './src/app.js',
     'NavBar': './src/components/Navbar/NavBar.js'},
   devtool: 'inline-source-map',
   output: {

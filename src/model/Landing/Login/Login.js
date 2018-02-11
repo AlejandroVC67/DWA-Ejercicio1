@@ -17,7 +17,9 @@ export class LoginModel {
       // console.log(password)
       this.data.forEach(element => {
         if (element.Person[0].email === email && element.Person[0].password === password) {
-          this.verifyPassword(this.elements.input[1].value, element.Person[1].jobs)
+          console.log(element)
+          console.log(element.Person)
+          this.verifyPassword(this.elements.input[1].value, element)
         }
       })
     })
@@ -28,6 +30,7 @@ export class LoginModel {
     // console.log(person)
     if (password.length >= MINLENGTH && /(?=.*[0-9])/.exec(password) && /(?=.*[!@#$%^&*])/.exec(password)) {
       window.sessionStorage.setItem('person', JSON.stringify(person))
+      // console.log(JSON.stringify(person))
       window.location.href = './app.html'
     } else {
       window.alert('Password should contain numbers or special characters')

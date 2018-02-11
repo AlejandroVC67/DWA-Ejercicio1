@@ -3,8 +3,10 @@ import './mainGrid.scss'
 export class Grid {
   constructor (node) {
     this.node = node
-    this.jobs = JSON.parse(window.sessionStorage.getItem('person'))
-    // console.log(this.person)
+    this.person = JSON.parse(window.sessionStorage.getItem('person'))
+    // console.log(this.person.Person[1].jobs)
+    this.jobs = this.person.Person[1].jobs
+    console.log(this.jobs)
     // console.log(this.data)
     this.elements = {}
     this.createGridElement(this.node)
@@ -20,7 +22,7 @@ export class Grid {
                             <div class="job__information-container">
                                 <p class="job__information">Title: {title} </p>
                                 <p class="job__information">Deadline: {deadline}</p>
-                                <button></button>
+                                <button class="job__information-button">Change State</button>
                             </div>
                         </div>
                     </div>`)
@@ -42,6 +44,20 @@ export class Grid {
         .replace('{deadline}', element.deadline)
     })
     grid.innerHTML = jobsArray.join('')
+  }
+
+  updateJobs (updatedData) {
+    // console.log(updatedData.Person[1].jobs)
+    this.updatedJobs = updatedData.Person[1].jobs
+    const jobsArray = this.updatedJobs.map(element => {
+      return Grid.contentStructure.gridElement
+        .replace('{src}', element.url)
+        .replace('{title}', element.title)
+        .replace('{cat}', element.status)
+        .replace('{deadline}', element.deadline)
+    })
+    this.node.innerHTML = jobsArray.join('')
+    this.showAllCategories(document.querySelectorAll('.grid__element'))
   }
 
   updateGrid (categorySelected) {
