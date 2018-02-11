@@ -44,6 +44,7 @@ export class JobModel {
           'deadline': this.deadline
         }
         console.log(this.updatedJob)
+        this.callback(this.person, this.updatedJob)
       })
     })
   }

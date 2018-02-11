@@ -16,7 +16,7 @@ function onCreate (createdUser) {
 }
 
 /* eslint-enable */
-const URL = 'https://api.myjson.com/bins/12na3h'
+const URL = 'https://api.myjson.com/bins/1b5tl9'
 DataRetriever.get(URL, (data) => {
 /* eslint-disable */
   new LoginModel(document.querySelector('.login'), data)
