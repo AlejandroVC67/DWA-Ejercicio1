@@ -22,20 +22,13 @@ export default class DataRetriever {
     })
   }
 
-  static postJob (url, updatedPerson, data, callback) {
-    // console.log(updatedPerson)
-    data.forEach(element => {
-      if (element.Person[0].email === updatedPerson.Person[0].email && element.Person[0].password === updatedPerson.Person[0].password) {
-        const index = data.indexOf(element)
-        data.splice(index, 1, updatedPerson)
-      }
-    })
-    // fetch(url, {
-    //   method: 'PUT',
-    //   body: JSON.stringify(data),
-    //   headers: new Headers({
-    //     'Content-Type': 'application/json'
-    //   })
-    // }).then(callback(updatedPerson))
+  static postJob (url, data, callback) {
+    fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(res => console.log(res))
   }
 }

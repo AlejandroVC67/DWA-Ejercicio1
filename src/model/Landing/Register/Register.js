@@ -12,7 +12,6 @@ export class RegisterModel {
     this.elements.button.addEventListener('click', () => {
       this.elements.inputs = this.node.querySelectorAll('.landing__input')
       this.elements.select = this.node.querySelector('.register__selected')
-      console.log(this.elements.select.options)
       if (this.verifyPassword(this.elements.inputs[1].value)) {
         this.elements.json = {
           'Person': [

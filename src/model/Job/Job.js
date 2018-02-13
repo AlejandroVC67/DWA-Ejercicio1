@@ -1,14 +1,14 @@
 export class JobModel {
-  constructor (node, callback) {
+  constructor (node, callback, onUpdate) {
     this.node = node
     this.callback = callback
+    this.onUpdate = onUpdate
     this.elements = {}
     this.person = JSON.parse(window.sessionStorage.getItem('person'))
     this.elements.addButton = this.node.querySelector('.job__form__button')
     this.setButtonAction(this.elements.addButton)
     this.elements.changeState = document.querySelectorAll('.job__information-button')
     this.setChangeStateButton(this.elements.changeState)
-    // console.log(this.jobs)
   }
 
   setButtonAction (button) {
@@ -31,25 +31,27 @@ export class JobModel {
         const index = Array.from(buttons).indexOf(element)
         this.gridElement = document.querySelectorAll('.grid__element')[index]
         this.state = this.gridElement.getAttribute('data-category')
-        this.updateJob()
+        this.updateState()
         this.url = this.gridElement.querySelector('.job__image').src
         this.jobTitle = this.gridElement.querySelectorAll('.job__information')[0].innerText.split(':')[1]
-        // this.realTitle = this.jobTitle.split(':')[1]
         this.deadline = this.gridElement.querySelectorAll('.job__information')[1].innerText.split(':')[1]
-        // this.realDeadline = this.deadline.split(':')[1]
         this.updatedJob = {
           'title': this.jobTitle,
           'url': this.url,
           'status': this.state,
           'deadline': this.deadline
         }
-        console.log(this.updatedJob)
-        this.callback(this.person, this.updatedJob)
+        // this.gridElement.parentNode.removeChild(this.gridElement)
+        this.updateJob()
+        this.person.Person[1].jobs.push(this.updatedJob)
+        window.sessionStorage.removeItem('person')
+        window.sessionStorage.setItem('person', JSON.stringify(this.person))
+        this.onUpdate(this.person)
       })
     })
   }
 
-  updateJob () {
+  updateState () {
     if (this.state === 'pending') {
       this.state = 'done'
       this.gridElement.dataset.category = this.state
@@ -57,5 +59,14 @@ export class JobModel {
       this.state = 'pending'
       this.gridElement.dataset.category = this.state
     }
+  }
+
+  updateJob () {
+    this.person.Person[1].jobs.forEach(element => {
+      if (element.url === this.updatedJob.url) {
+        const oldValueIndex = this.person.Person[1].jobs.indexOf(element)
+        this.person.Person[1].jobs.splice(oldValueIndex, 1)
+      }
+    })
   }
 }

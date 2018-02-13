@@ -71,7 +71,6 @@ export class NavBar {
       event.currentTarget.classList.add('nav-bar__list__element-button--selected')
       this.currentFilter = event.currentTarget.dataset.category
       this.elements.displayer.classList.toggle('nav-bar__list--active')
-      // console.log(this.currentFilter)
       this.onChange(this.currentFilter)
     }
   }
