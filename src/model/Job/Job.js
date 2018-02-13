@@ -5,12 +5,14 @@ export class JobModel {
     this.onUpdate = onUpdate
     this.elements = {}
     this.person = JSON.parse(window.sessionStorage.getItem('person'))
+    console.log(this.person, 'al inicio')
     this.elements.addButton = this.node.querySelector('.job__form__button')
     this.setButtonAction(this.elements.addButton)
     this.elements.changeState = document.querySelectorAll('.job__information-button')
     this.setChangeStateButton(this.elements.changeState)
     this.elements.jobContainer = document.querySelectorAll('.job')
     this.setJobContainerAction()
+    this.setUpdateButtonAction()
   }
 
   setButtonAction (button) {
@@ -79,7 +81,33 @@ export class JobModel {
   setJobContainerAction () {
     this.elements.jobContainer.forEach(element => {
       element.addEventListener('click', () => {
+        this.elements.jobUpdate = document.querySelector('.job__form-update')
+        this.elements.jobUpdate.classList.add('job__form-update--active')
+        const index = Array.from(this.elements.jobContainer).indexOf(element)
+        this.gridElement = document.querySelectorAll('.grid__element')[index]
       })
+    })
+  }
+
+  setUpdateButtonAction () {
+    this.elements.updateButton = document.querySelector('.job__form__update-button')
+    this.elements.updateButton.addEventListener('click', () => {
+      this.newUrl = this.elements.jobUpdate.querySelectorAll('.job__form__update-input')[1].value
+      this.newJobTitle = this.elements.jobUpdate.querySelectorAll('.job__form__update-input')[0].value
+      this.newDeadline = this.elements.jobUpdate.querySelectorAll('.job__form__update-input')[2].value
+      this.gridElement.querySelector('.job__image').src = this.newUrl
+      this.gridElement.querySelectorAll('.job__information')[0].innerText = this.newJobTitle
+      this.gridElement.querySelectorAll('.job__information')[1].innerText = 'DEADLINE:' + this.newDeadline
+      this.updatedJob = {
+        'title': this.newJobTitle,
+        'url': this.newUrl,
+        'status': this.state = this.gridElement.getAttribute('data-category'),
+        'deadline': this.newDeadline
+      }
+      window.sessionStorage.removeItem('person')
+      window.sessionStorage.setItem('person', JSON.stringify(this.person))
+      this.elements.jobUpdate.classList.remove('job__form-update--active')
+      this.onUpdate(this.person)
     })
   }
 }
