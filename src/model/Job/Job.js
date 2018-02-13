@@ -9,6 +9,8 @@ export class JobModel {
     this.setButtonAction(this.elements.addButton)
     this.elements.changeState = document.querySelectorAll('.job__information-button')
     this.setChangeStateButton(this.elements.changeState)
+    this.elements.jobContainer = document.querySelectorAll('.job')
+    this.setJobContainerAction()
   }
 
   setButtonAction (button) {
@@ -20,7 +22,11 @@ export class JobModel {
         'status': 'pending',
         'deadline': this.elements.inputs[2].value
       }
-      this.callback(this.person, this.elements.newJob)
+      this.person.Person[1].jobs.push(this.elements.newJob)
+      window.sessionStorage.removeItem('person')
+      window.sessionStorage.setItem('person', JSON.stringify(this.person))
+      console.log(this.person)
+      this.callback(this.person)
       this.node.classList.remove('job__form--active')
     })
   }
@@ -67,6 +73,13 @@ export class JobModel {
         const oldValueIndex = this.person.Person[1].jobs.indexOf(element)
         this.person.Person[1].jobs.splice(oldValueIndex, 1)
       }
+    })
+  }
+
+  setJobContainerAction () {
+    this.elements.jobContainer.forEach(element => {
+      element.addEventListener('click', () => {
+      })
     })
   }
 }

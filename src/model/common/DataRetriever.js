@@ -23,6 +23,8 @@ export default class DataRetriever {
   }
 
   static postJob (url, data, callback) {
+    console.log(data)
+    /*
     fetch(url, {
       method: 'PUT',
       body: JSON.stringify(data),
@@ -30,5 +32,6 @@ export default class DataRetriever {
         'Content-Type': 'application/json'
       })
     }).then(res => console.log(res))
+    */
   }
 }

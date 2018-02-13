@@ -48,14 +48,14 @@ export class Grid {
 
   updateJobs (updatedData) {
     this.person = updatedData
-    console.log(this.node)
     const jobsArray = this.person.Person[1].jobs.map(element => {
       return Grid.contentStructure.gridElement
-         .replace('{src}', element.url)
-         .replace('{title}', element.title)
-         .replace('{cat}', element.status)
-         .replace('{deadline}', element.deadline)
+          .replace('{src}', element.url)
+          .replace('{title}', element.title)
+          .replace('{cat}', element.status)
+          .replace('{deadline}', element.deadline)
     })
+    console.log(jobsArray)
     this.node.innerHTML = jobsArray.join('')
     this.showAllCategories(document.querySelectorAll('.grid__element'))
   }
