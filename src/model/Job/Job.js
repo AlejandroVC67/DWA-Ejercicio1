@@ -35,7 +35,8 @@ export class JobModel {
 
   setChangeStateButton (buttons) {
     buttons.forEach(element => {
-      element.addEventListener('click', () => {
+      element.addEventListener('click', (e) => {
+        e.stopPropagation()
         const index = Array.from(buttons).indexOf(element)
         this.gridElement = document.querySelectorAll('.grid__element')[index]
         this.state = this.gridElement.getAttribute('data-category')
@@ -50,7 +51,7 @@ export class JobModel {
           'deadline': this.deadline
         }
         // this.gridElement.parentNode.removeChild(this.gridElement)
-        this.updateJob()
+        this.updateJob(this.updatedJob)
         this.person.Person[1].jobs.push(this.updatedJob)
         window.sessionStorage.removeItem('person')
         window.sessionStorage.setItem('person', JSON.stringify(this.person))
@@ -69,9 +70,10 @@ export class JobModel {
     }
   }
 
-  updateJob () {
+  updateJob (newJob) {
+    console.log(newJob)
     this.person.Person[1].jobs.forEach(element => {
-      if (element.url === this.updatedJob.url) {
+      if (element.url === newJob.url) {
         const oldValueIndex = this.person.Person[1].jobs.indexOf(element)
         this.person.Person[1].jobs.splice(oldValueIndex, 1)
       }
@@ -92,18 +94,18 @@ export class JobModel {
   setUpdateButtonAction () {
     this.elements.updateButton = document.querySelector('.job__form__update-button')
     this.elements.updateButton.addEventListener('click', () => {
-      this.newUrl = this.elements.jobUpdate.querySelectorAll('.job__form__update-input')[1].value
       this.newJobTitle = this.elements.jobUpdate.querySelectorAll('.job__form__update-input')[0].value
-      this.newDeadline = this.elements.jobUpdate.querySelectorAll('.job__form__update-input')[2].value
-      this.gridElement.querySelector('.job__image').src = this.newUrl
-      this.gridElement.querySelectorAll('.job__information')[0].innerText = this.newJobTitle
+      this.newDeadline = this.elements.jobUpdate.querySelectorAll('.job__form__update-input')[1].value
+      this.gridElement.querySelectorAll('.job__information')[0].innerText = 'TITLE:' + this.newJobTitle
       this.gridElement.querySelectorAll('.job__information')[1].innerText = 'DEADLINE:' + this.newDeadline
       this.updatedJob = {
+        'url': this.gridElement.querySelector('.job__image').src,
         'title': this.newJobTitle,
-        'url': this.newUrl,
         'status': this.state = this.gridElement.getAttribute('data-category'),
         'deadline': this.newDeadline
       }
+      this.updateJob(this.updatedJob)
+      this.person.Person[1].jobs.push(this.updatedJob)
       window.sessionStorage.removeItem('person')
       window.sessionStorage.setItem('person', JSON.stringify(this.person))
       this.elements.jobUpdate.classList.remove('job__form-update--active')
